@@ -1,18 +1,35 @@
 package model;
 
-abstract class ToyBaseModel{
-    String id;
-    String name;
-    int chance;
+import controller.IdGenerator;
 
-    public ToyBaseModel(String id, String name, int chance) {
-        this.id = id;
+public abstract class ToyBaseModel{
+    IdGenerate generator = new IdGenerator();
+    protected String id;
+    protected String name;
+    protected int chance;
+    {
+        id = generator.generateId(4,4);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getChance() {
+        return chance;
+    }
+
+    public ToyBaseModel(String name, int chance) {
         this.name = name;
         this.chance = chance;
     }
 
     @Override
     public String toString() {
-        return String.format("|id: %9s | name: %10s|", id, name);
+        return String.format("|id: %9s | name: %-10s|", id, name);
     }
 }

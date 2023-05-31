@@ -1,4 +1,4 @@
-# toyStoreRaffleService
+# toyStoreDrawingService
 
 Задание 2. Магазин игрушек (Java)
 Информация о проекте
