@@ -6,7 +6,8 @@ import java.util.Random;
 
 public class IdGenerator implements IdGenerate {
     /**
-     * метод генерирует идентификатор из символов и четырех цифр
+     * метод генерирует идентификатор из символов
+     * и 4 цифр (пример: HNQS-1341)
      * @param letters список символов
      * @param count длинная символьной строки
      * @return индентификатор из символов и цифр

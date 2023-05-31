@@ -4,8 +4,9 @@ import controller.IdGenerator;
 
 public class Main {
     public static void main(String[] args) {
-        IdGenerator idGenerator = new IdGenerator();
-
-        System.out.println(idGenerator.generateId("ABCDEFGHIJKLMNOPQRSTUVWXYZ",4));
+        MainMenu menu = new MainMenu();
+        menu.start();
+//        IdGenerator idGenerator = new IdGenerator();
+//        System.out.println(idGenerator.generateId("ABCDEFGHIJKLMNOPQRSTUVWXYZ",4));
     }
 }

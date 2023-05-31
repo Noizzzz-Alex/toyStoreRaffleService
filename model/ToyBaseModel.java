@@ -1,7 +1,5 @@
 package model;
 
-import controller.IdGenerator;
-
 abstract class ToyBaseModel{
     String id;
     String name;
