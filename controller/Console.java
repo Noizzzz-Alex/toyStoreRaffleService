@@ -54,7 +54,7 @@ public class Console extends ConsoleBaseModel {
     protected void subMenuDrawing(NewDrawing newDrawing) {
         System.out.println("this is submenu");
         System.out.println("команда №1");
-        newDrawing.startNewDrawing();
+
     }
 
     @Override

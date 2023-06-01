@@ -29,7 +29,7 @@ public class MainMenu implements StartMainMenu {
                 case "1" -> {
                     System.out.println("команда №1");
                     NewDrawing newDrawing = new Drawing();
-                    newDrawing.startNewDrawing();
+
                 }
                 case "2" -> {
                     System.out.println("команда №2");
