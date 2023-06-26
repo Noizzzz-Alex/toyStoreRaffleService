@@ -6,7 +6,6 @@ import model.ToyBaseModel;
 import model.ToyFactoryBaseModel;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class ToyFactory extends ToyFactoryBaseModel implements IsNumeric, CreatingToy {
@@ -25,25 +24,25 @@ public class ToyFactory extends ToyFactoryBaseModel implements IsNumeric, Creati
     @Override
     public void createNewToy(List<ToyBaseModel> toys) {
         String choice = "";
-        int amount = 0;
-        int chance = 0;
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Какую игрушку хотите создать?");
+        System.out.println(choiceText);
         while (!(choice.equals("0"))) {
-            System.out.println(choiceText);
             choice = scanner.nextLine();
-            if (choice.equals("1") || choice.equals("2") || choice.equals("3")) {
-                System.out.println("Введите количество игрушек: ");
-                scanner.nextLine();
-                if (scanner.hasNextInt()) {
-                    amount = scanner.nextInt();
-                    System.out.println("Введите шанс выпадения(%): ");
-                    scanner.nextLine();
-                    if (scanner.hasNextInt()) {
-                        chance = scanner.nextInt();
-                        createNewToy(Integer.parseInt(choice), amount, chance, toys);
+            switch (choice) {
+                case "1", "2", "3" -> {
+                    System.out.print("Введите количество игрушек: ");
+                    String temp = scanner.nextLine();
+                    if (isNumeric(temp)) {
+                        int amount = Integer.parseInt(temp);
+                        System.out.print("Введите шанс выпадения(%): ");
+                        temp = scanner.nextLine();
+                        if (isNumeric(temp)) {
+                            int chance = Integer.parseInt(temp);
+                            createNewToy(Integer.parseInt(choice), amount, chance, toys);
+                            System.out.println(choiceText);
+                        } else System.out.println(errorTextChoice);
                     }
-                } else System.out.println(errorTextChoice);
+                }
             }
         }
     }
@@ -52,7 +51,7 @@ public class ToyFactory extends ToyFactoryBaseModel implements IsNumeric, Creati
     @Override
     public boolean isNumeric(String str) {
         try {
-            int i = Integer.parseInt(str);
+            Integer.parseInt(str);
         } catch (NumberFormatException | NullPointerException nfe) {
             return false;
         }
@@ -75,23 +74,9 @@ public class ToyFactory extends ToyFactoryBaseModel implements IsNumeric, Creati
         for (int i = 0; i < amount; i++) {
             toys.add(toy);
         }
+        assert toy != null;
         System.out.printf("%d игрушек %s с шансом выпадения (%d) созданы и добавлены\n",
                 amount, toy.getName(), toy.getChance());
     }
 }
 
-//        if (isNumeric(scanner.nextLine())&&!scanner.nextLine().isEmpty()) {
-//            int amount = Integer.parseInt(scanner.nextLine());
-//
-//            if (isNumeric(scanner.nextLine())) {
-//                int chance = Integer.parseInt(scanner.nextLine());
-//        ToyBaseModel tempToy = new ToyRobot("Робот", chance);
-//        addedToys(tempToy, amount, toys);
-//    }
-
-
-//    getName());
-//        } else {
-//            System.out.printf("%s\n%s\n", errorTextChoice, choiceText);
-//            scanner.nextLine();
-//}

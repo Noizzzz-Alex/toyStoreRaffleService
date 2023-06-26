@@ -1,15 +1,14 @@
 package view;
 
 import controller.Console;
-import controller.Drawing;
-import controller.IdGenerator;
-import controller.ToyRobot;
-import model.ConsoleBaseModel;
-import model.NewDrawing;
+
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Console console = new Console();
+//        Drawing drawing = new Drawing();
+//        System.out.println(drawing);
         console.start();
 //        ToyRobot toyRobot0 = new ToyRobot("Robot10", 10);
 //        ToyRobot toyRobot1 = new ToyRobot("Robot15", 15);

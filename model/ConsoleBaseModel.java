@@ -1,12 +1,13 @@
 package model;
 
+import java.io.IOException;
 import java.util.List;
 
 public abstract class ConsoleBaseModel {
-    List<DrawingBaseModel>drawingList;
-    public abstract   void  start();
-    public abstract void mainMenu();
-    protected abstract void subMenuDrawing(DrawingBaseModel newDrawing);
-    protected abstract void subMenuAddedToysForDrawing(DrawingBaseModel newDrawing);
+    List<RaffleBaseModel>drawingList;
+    public abstract   void  start() throws IOException;
+    public abstract void mainMenu() throws IOException;
+    protected abstract void subMenuRaffle(RaffleBaseModel newDrawing, List<ToyBaseModel> toys);
+    protected abstract void subMenuAddedToysForDrawing(RaffleBaseModel newDrawing);
 
 }
