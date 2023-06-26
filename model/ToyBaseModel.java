@@ -10,10 +10,12 @@ public abstract class ToyBaseModel{
     {
         id = generator.generateId(4,4);
     }
-
-    public String getId() {
-        return id;
+    public enum ToyType{
+        TOY_ROBOT,
+        TOY_TEDDY_BEAR,
+        TOY_AUTO
     }
+
 
     public String getName() {
         return name;

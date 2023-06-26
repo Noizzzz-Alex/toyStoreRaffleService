@@ -3,5 +3,5 @@ package model;
 import java.util.List;
 
 public interface AddDrawingToys {
-    void addedDrawingToys(ToyBaseModel toy);
+    void addedDrawingToys(List<ToyBaseModel> toys,ToyBaseModel toy);
 }
