@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -37,7 +39,7 @@ public class Console extends ConsoleBaseModel implements SaveToFile {
         System.out.println(greetingText);
 
         String choice = "";
-        while (!(choice.equals("0"))) {
+        while (!(choice.equals(" "))) {
             System.out.println(choiceText);
             choice = scanner.nextLine();
             switch (choice) {
@@ -47,19 +49,23 @@ public class Console extends ConsoleBaseModel implements SaveToFile {
                     saveToFile(newRaffle);
                 }
                 case "2" -> {
-                    System.out.println("команда №2");
-                    raffleList.forEach(System.out::println);
+                    System.out.println("Выводим список розыгрышей: ");
+                    if (raffleList.isEmpty()) {
+                        System.out.println("Список розыгрышей пуст");
+                    }else {
+                        raffleList.forEach(System.out::println);
+                    }
                 }
                 case "3" -> {
-                    System.out.println("команда №3");
+                    System.out.println("Переходим к созданию: ");
                     ToyFactoryBaseModel toyFactory = new ToyFactory();
                     toyFactory.createNewToy(newRaffle.getToyList());
 
 
                 }
-                case "4" -> {
-                    System.out.println("команда №4");
-                    mainMenu();
+                case "0" -> {
+                    System.out.println("До следующего раза!");
+                    return;
                 }
 
                 default -> {
@@ -87,31 +93,41 @@ public class Console extends ConsoleBaseModel implements SaveToFile {
     @Override
     public void saveToFile(RaffleBaseModel newRaffle) throws IOException {
         String fileName = newRaffle.toString();
-        String path = "resourceFiles";
-        FileWriter fileWriter = new FileWriter(path + "/" + fileName + ".txt");
-        try {
-            File file = new File(fileName);
-            if (!file.exists()) {
-                file.createNewFile(); // Создание файла, если он не существует
-                System.out.println("Файл создан: " + fileName);
+        fileName = fileName.replace("#", "-").replace(":", "_").replace("№", "");
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
+        String formattedDateTime = currentDateTime.format(formatter);
+        String finalFileName = fileName + "_" + formattedDateTime;
+        String directoryPath = "resourceFiles";
+        String filePath = directoryPath + File.separator + finalFileName + ".txt";
 
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.createNewFile();
+            System.out.println("Файл создан: " + filePath);
+            FileWriter fileWriter = new FileWriter(file);
+            try {
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                String drawingName = String.format("|_%-41s_|\n", newRaffle);
+                String drawingName = String.format("|%-10s|розыграно: %d игрушек|%s|\n",
+                        newRaffle,raffleToysList.size(),formattedDateTime);
                 bufferedWriter.write(drawingName);
                 for (ToyBaseModel toy : raffleToysList) {
                     bufferedWriter.write(toy.toString());
                     bufferedWriter.newLine();
-                    String content = String.format("|-%-15s-|-chance: %d\n", toy, toy.getChance());
-                    bufferedWriter.write(content);
                 }
                 bufferedWriter.close();
-                fileWriter.close();
                 System.out.println("Файл успешно записан.");
+            } finally {
+                fileWriter.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
         }
     }
+
+
+}
+

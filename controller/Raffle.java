@@ -3,10 +3,9 @@ package controller;
 import model.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-public class Raffle extends RaffleBaseModel implements AddDrawingToys, RemoveRaffleToys, IsNumeric {
+
+public class Raffle extends RaffleBaseModel implements  IsNumeric {
     public List<ToyBaseModel> getToyList() {
         return toyList;
     }
@@ -14,11 +13,11 @@ public class Raffle extends RaffleBaseModel implements AddDrawingToys, RemoveRaf
     List<ToyBaseModel> toyList = new LinkedList<>();
     private int id;
     private final LocalDate currentDate;
+
     {
         currentDate = LocalDate.now();
         id++;
     }
-
 
 
     String greetingText = "Здравствуйте, наконец-то этот день настал и" +
@@ -35,21 +34,18 @@ public class Raffle extends RaffleBaseModel implements AddDrawingToys, RemoveRaf
             System.out.println("Пополните список игрушек!");
         } else {
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Сколько игрушек хотите розыграть?: ");
+            System.out.print("Сколько попыток хотите сделать?: ");
             String temp = scanner.nextLine();
             if (isNumeric(temp)) {
                 int amount = Integer.parseInt(temp);
-                while (amount > 1) {
-                    for (int i = 0; i < toys.size(); i++) {
-                        int totalChance = random.nextInt(0, 100);
-                        for (ToyBaseModel toy : toys) {
-                            if (totalChance < toy.getChance()) {
-                                System.out.println(toy.getName());
-                                drawingsToysList.add(toy);
-                                toys.remove(toy);
-                                amount--;
-                                break;
-                            }
+                for (int i = 0; i < amount; i++) {
+                    int totalChance = random.nextInt(0, 100);
+                    for (ToyBaseModel toy : toys) {
+                        if (totalChance < toy.getChance()) {
+                            System.out.println(toy.getName());
+                            drawingsToysList.add(toy);
+                            toys.remove(toy);
+                            break;
                         }
                     }
                 }
@@ -62,20 +58,7 @@ public class Raffle extends RaffleBaseModel implements AddDrawingToys, RemoveRaf
 
     @Override
     public String toString() {
-        DateTimeFormatter date = DateTimeFormatter.ofPattern("ddMMMyyyy/");
-        LocalDateTime now = LocalDateTime.now();
-        String formattedDate = currentDate.format(date);
-        String hour = now.format(DateTimeFormatter.ofPattern("HH:mm"));
-        return String.format("Raffle#%d__%s%s", id, formattedDate, hour);
-    }
-
-    @Override
-    public void addedRaffleToys(List<ToyBaseModel> toys, ToyBaseModel toy) {
-        toys.add(toy);
-    }
-    @Override
-    public void removeRaffleToys(List<ToyBaseModel> toys, ToyBaseModel toy) {
-        toys.remove(toy);
+        return String.format("Raffle№%d", id);
     }
 
 

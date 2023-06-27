@@ -8,9 +8,9 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
         Console console = new Console();
-        Raffle raffle = new Raffle();
-        System.out.println(raffle);
-//        console.start();
+//        Raffle raffle = new Raffle();
+//        System.out.println(raffle);
+        console.start();
 //        ToyRobot toyRobot0 = new ToyRobot("Robot10", 10);
 //        ToyRobot toyRobot1 = new ToyRobot("Robot15", 15);
 //        ToyRobot toyRobot2 = new ToyRobot("Robot20", 20);

@@ -27,6 +27,6 @@ public abstract class ToyBaseModel{
 
     @Override
     public String toString() {
-        return String.format("|id: %9s | name: %-10s|", id, name);
+        return String.format("|id: %9s | name: %-10s| chance: %d |", id, name, chance);
     }
 }
