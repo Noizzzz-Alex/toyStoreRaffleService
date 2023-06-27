@@ -52,7 +52,7 @@ public class Console extends ConsoleBaseModel implements SaveToFile {
                     System.out.println("Выводим список розыгрышей: ");
                     if (raffleList.isEmpty()) {
                         System.out.println("Список розыгрышей пуст");
-                    }else {
+                    } else {
                         raffleList.forEach(System.out::println);
                     }
                 }
@@ -108,11 +108,10 @@ public class Console extends ConsoleBaseModel implements SaveToFile {
         if (!file.exists()) {
             file.createNewFile();
             System.out.println("Файл создан: " + filePath);
-            FileWriter fileWriter = new FileWriter(file);
-            try {
+            try (FileWriter fileWriter = new FileWriter(file)) {
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 String drawingName = String.format("|%-10s|розыграно: %d игрушек|%s|\n",
-                        newRaffle,raffleToysList.size(),formattedDateTime);
+                        newRaffle, raffleToysList.size(), formattedDateTime);
                 bufferedWriter.write(drawingName);
                 for (ToyBaseModel toy : raffleToysList) {
                     bufferedWriter.write(toy.toString());
@@ -120,12 +119,8 @@ public class Console extends ConsoleBaseModel implements SaveToFile {
                 }
                 bufferedWriter.close();
                 System.out.println("Файл успешно записан.");
-            } finally {
-                fileWriter.close();
             }
         }
     }
-
-
 }
 
