@@ -102,9 +102,7 @@ public class Console extends ConsoleBaseModel implements SaveToFile {
         String filePath = directoryPath + File.separator + finalFileName + ".txt";
 
         File directory = new File(directoryPath);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        if (!directory.exists()) directory.mkdirs();
 
         File file = new File(filePath);
         if (!file.exists()) {
