@@ -3,6 +3,7 @@ package controller;
 import model.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 public class Raffle extends RaffleBaseModel implements AddDrawingToys, RemoveRaffleToys, IsNumeric {
@@ -61,9 +62,11 @@ public class Raffle extends RaffleBaseModel implements AddDrawingToys, RemoveRaf
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Формат вывода даты
-        String formattedDate = currentDate.format(formatter);
-        return String.format("Raffle#%d__%s", id, formattedDate);
+        DateTimeFormatter date = DateTimeFormatter.ofPattern("ddMMMyyyy/");
+        LocalDateTime now = LocalDateTime.now();
+        String formattedDate = currentDate.format(date);
+        String hour = now.format(DateTimeFormatter.ofPattern("HH:mm"));
+        return String.format("Raffle#%d__%s%s", id, formattedDate, hour);
     }
 
     @Override
